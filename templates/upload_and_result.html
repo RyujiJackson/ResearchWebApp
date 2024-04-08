@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<title>Upload and return image test</title>
+	<head>
+		<link rel="stylesheet" href="../static/style.css">
+	</head>
+	<body>
+		<h2>Select Gastric X-ray images to upload and display heatmap</h2>
+		<p>
+			{% with messages = get_flashed_messages() %}
+	  			{% if messages %}
+					<ul class=flashes>
+						{% for message in messages %}
+		  				<li>{{ message }}</li>
+						{% endfor %}
+					</ul>
+	  			{% endif %}
+			{% endwith %}
+		</p>
+
+		<form method="post" action="/" enctype="multipart/form-data">
+    		<dl>
+				<p>
+					<input type="file" name="files[]" multiple="true" autocomplete="off" required>
+				</p>
+    		</dl>
+    		<p>
+				<input type="submit" value="Submit">
+			</p>
+		</form>
+
+		{% if filenames %}
+			<div style="height:200px;width:1200px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+				<table>
+					<tr>
+						{% for filename in filenames %}
+						<th>
+							<form method="POST" action="{{ url_for('diagnose') }}">
+								<input type="hidden" name="img_index" value="{{loop.index-1}}">
+								<button name="detail_of_case" type="submit" value="{{filename}}">
+									<img src="../static/uploads/origin/{{filename}}" width="128" height="128">
+								</button>
+							</form> 
+						</th>
+						{% endfor %}
+					</tr>
+					<tr>
+						{% for filename in filenames %}
+						<th>
+							{{filename}}
+						</th>
+						{% endfor %}
+					</tr>
+				</table>
+			</div>
+		{% endif %}
+
+		{% if data_to_show == True: %}
+			<div style="height:750px;width:1850px;border:0px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+				<table>
+					<tr>
+						<td>
+							<div id="container">
+								<table>
+									<tr>
+										<td>
+											<img class='img' src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512" />
+											<canvas id="myCanvas" width="512" height="512"></canvas>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+						<td>
+							<table class ="checklist" style="height: 500px;width: 500px; margin: 5px;">
+								<tr>
+							  		<td>前庭部胃粘膜の判定
+										<ul class="list-group" style="list-style-type: none; padding:0px;">
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="zentei_inen{{filenames[img_index]}}_1" value="yes"> 平滑型</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="zentei_inen{{filenames[img_index]}}_2" value="yes"> 粗造型</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="zentei_inen{{filenames[img_index]}}_3" value="yes"> 中間型</li>
+										</ul>
+									</td>
+									<td>胃体部胃粘膜の判定
+										<ul class="list-group" style="list-style-type: none; padding:0px;">
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="itai_inen{{filenames[img_index]}}_1" value="yes"> 平滑型</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="itai_inen{{filenames[img_index]}}_2" value="yes"> 粗造型</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="itai_inen{{filenames[img_index]}}_3" value="yes"> 中間型</li>
+										</ul>
+									</td>
+									<td>ひだの形状判定
+										<ul class="list-group" style="list-style-type: none; padding:0px;">
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida{{filenames[img_index]}}_1" value="yes"> 正常型(6S)</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida{{filenames[img_index]}}_2" value="yes"> 異常型(非6S)</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida{{filenames[img_index]}}_3" value="yes"> 中間型</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida{{filenames[img_index]}}_4" value="yes"> 消失型</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>ひだの分布の判定
+										<ul class="list-group" style="list-style-type: none; padding:0px;">
+										  	<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida_bunpu{{filenames[img_index]}}_1" value="yes"> 萎縮なし</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida_bunpu{{filenames[img_index]}}_2" value="yes"> 軽度萎縮</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida_bunpu{{filenames[img_index]}}_3" value="yes"> 中等度萎縮</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida_bunpu{{filenames[img_index]}}_4" value="yes"> 高度萎縮</li>
+										</ul>
+									</td>
+									<td>読影(感染有無)
+										<ul class="list-group" style="list-style-type: none; padding:0px;">
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="dokuei{{filenames[img_index]}}_1" value="yes"> 非感染</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="dokuei{{filenames[img_index]}}_2" value="yes"> 感染</li>
+										</ul>
+									</td>
+									<td>ABCD分類
+										<ul class="list-group" style="list-style-type: none; padding:0px;">
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="ABCD{{filenames[img_index]}}_1" value="yes"> A(PG-,Anti-)</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="ABCD{{filenames[img_index]}}_2" value="yes"> B(PG-,Anti+)</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="ABCD{{filenames[img_index]}}_3" value="yes"> C(PG+,Anti+)</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="ABCD{{filenames[img_index]}}_4" value="yes"> D(PG+,Anti-)</li>
+											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="ABCD{{filenames[img_index]}}_5" value="yes"> その他</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<form method="POST" action="{{ url_for('diagnose_result') }}">
+											<input type="hidden" name="img_index" value="{{img_index}}">
+											<button name="detail_of_case" type="submit" value="{{filename}}">
+												Show AI diagnose result
+											</button>
+										</form> 									
+									</th>
+								</tr>
+							</table>
+						</td>
+						<td>
+						{% if show_result == True: %}
+							<div id="container" style="height:600px;width:800px;border:0px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+								<table>
+								<tr>
+									<td>
+										<img class="img" src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512"/>
+										<img class="img_top" src="../static/uploads/heatmap/{{filenames[img_index]}}" width="512" height="512"/>
+									</td>
+									<td style="font-size:1.5vw;">
+										<p>感染する確率 : {{prediction[img_index]}}%</p>
+										<br>
+										<p>診断結果 : {{results[img_index]}}</p>
+										<br>
+										<a href="{{ url_for('.download_file') }}">Download heatmaps</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input type="range" id="range" min="0" max="100" value="50"><br><br>
+									</td>
+									<td>
+									</td>
+								</tr>
+								</table>
+							</div>
+						{% endif %}
+						</td>
+					</tr>
+				</table>
+			</div>
+		{% endif %}
+	</body>
+</html>
+
+<!-- To use node JS to save checkbox state-->
+<script src="http://code.jquery.com/jquery.js"></script>
+<!-- This JavaScript file is required to load the XpressDox interview as well as the code required to run it -->
+
+<script src="../static/CheckboxState.js"></script>
+
+<!--
+<script>
+// Avoid scoping issues by encapsulating code inside anonymous function
+(function() {
+  	// variable to store our current state
+  	var cbstate;
+  
+  	// bind to the onload event
+  	window.addEventListener('load', function() {
+    // Get the current state from localstorage
+    // State is stored as a JSON string
+    cbstate = JSON.parse(localStorage['CBState'] || '{}');
+
+    // Loop through state array and restore checked 
+    // state for matching elements
+    for(var i in cbstate) {
+      	var el = document.querySelector('input[name="' + i + '"]');
+      	if (el) el.checked = true;
+    }
+  
+    // Get all checkboxes that you want to monitor state for
+    var cb = document.getElementsByClassName('save-cb-state');
+  
+    // Loop through results and ...
+    for(var i = 0; i < cb.length; i++) {
+  
+      //bind click event handler
+      	cb[i].addEventListener('click', function(evt) {
+        // If checkbox is checked then save to state
+        	if (this.checked) {
+          	cbstate[this.name] = true;
+        	}
+    
+    // Else remove from state
+        	else if (cbstate[this.name]) {
+          	delete cbstate[this.name];
+        	}
+    
+    // Persist state
+        	localStorage.CBState = JSON.stringify(cbstate);
+      	});
+    }
+	
+  });
+})();
+</script>
+-->
+
+<script src="../static/DrawingScript.js"></script>
+
+<script>
+	//script to handle slider to change opacity
+	var range = document.getElementById("range");
+	var imgTop = document.getElementsByClassName("img_top")[0];
+
+	range.addEventListener("input", function() {
+    	imgTop.style.opacity = this.value / this.max;
+	});
+</script>

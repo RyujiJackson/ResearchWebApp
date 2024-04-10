@@ -5,7 +5,6 @@ var mouse_on_canvas = {x:0, y:0};
 var temp = 0;
 const coordinates = [];
 var timer = 0
-var delay = 200
 var prevent = false
 
 
@@ -15,7 +14,6 @@ canvas.addEventListener('dblclick', doubleClick);
 function onClick(event) {
     timer = setTimeout(() => {
         if(!prevent){
-
             var rect = canvas.getBoundingClientRect();
             var scaleX = canvas.width / rect.width;
             var scaleY = canvas.height / rect.height;
@@ -32,8 +30,7 @@ function onClick(event) {
             }
 
         }
-    }, delay)
-    
+    })
 }
 
 function doubleClick(event) {

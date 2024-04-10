@@ -8,28 +8,30 @@ var timer = 0
 var delay = 200
 var prevent = false
 
-window.addEventListener('click', onClick);
-window.addEventListener('dblclick', doubleClick);
+
+canvas.addEventListener('click', onClick);
+canvas.addEventListener('dblclick', doubleClick);
 
 function onClick(event) {
     timer = setTimeout(() => {
         if(!prevent){
 
             var rect = canvas.getBoundingClientRect();
-            mouse_on_canvas.x = event.clientX - rect.left;
-            mouse_on_canvas.y = event.clientY - rect.top;
+            var scaleX = canvas.width / rect.width;
+            var scaleY = canvas.height / rect.height;
+            mouse_on_canvas.x = (event.clientX - rect.left) * scaleX;
+            mouse_on_canvas.y = (event.clientY - rect.top) * scaleY;
             if(((event.clientX >= rect.left) && (event.clientY >= rect.top)))
             {
                 if(((event.clientX <= rect.right)  && (event.clientY <= rect.bottom)))
                 {
                     temp = temp + 1
                     draw()
-                            coordinates.push({ x: mouse_on_canvas.x, y: mouse_on_canvas.y });
+                        coordinates.push({ x: mouse_on_canvas.x, y: mouse_on_canvas.y });
                 }
             }
 
         }
-        prevent = false
     }, delay)
     
 }
@@ -39,8 +41,10 @@ function doubleClick(event) {
     prevent=true
 
     var rect = canvas.getBoundingClientRect();
-    mouse_on_canvas.x = event.clientX - rect.left;
-    mouse_on_canvas.y = event.clientY - rect.top;
+    var scaleX = canvas.width / rect.width;
+    var scaleY = canvas.height / rect.height;
+    mouse_on_canvas.x = (event.clientX - rect.left) * scaleX;
+    mouse_on_canvas.y = (event.clientY - rect.top) * scaleY;
     if(((event.clientX >= rect.left) && (event.clientY >= rect.top)))
     {
         if(((event.clientX <= rect.right)  && (event.clientY <= rect.bottom)))
@@ -51,21 +55,16 @@ function doubleClick(event) {
 }
 
 function draw() {
-    var lastpoint_x = 1000;
-    var lastpoint_y = 1000;
+    var lastpoint_x = 10000;
+    var lastpoint_y = 10000;
 
     shape_size = 10.0
     c.clearRect(0, 0, canvas.width, canvas.height);
     c.fillStyle = "red";
-    //c.fillRect(mouse_on_canvas.x-(shape_size/2), mouse_on_canvas.y-(shape_size/2), shape_size, shape_size);
     c.font = "30px Arial";
     c.fillText(temp,10,50);
     // Accessing coordinates from the coordinates array using forEach loop
     coordinates.forEach(function(coordinate, index) {
-        //x = String(coordinate.x);
-        //y = String(coordinate.y);
-        //c.fillText(x + " " + y,10,50+(30*(index+1)))
-        
         if(index>0)
         {
             c.fillRect(coordinate.x-(shape_size/2), coordinate.y-(shape_size/2), shape_size, shape_size);
@@ -83,7 +82,6 @@ function draw() {
 
 function draw_polygon() {
     c.clearRect(0, 0, canvas.width, canvas.height);
-    //c.fillRect(mouse_on_canvas.x-(shape_size/2), mouse_on_canvas.y-(shape_size/2), shape_size, shape_size);
     c.fillText(temp,10,50);
     c.strokeStyle = "red";
 
@@ -100,5 +98,5 @@ function draw_polygon() {
     c.stroke();
 }
 
-setInterval(draw, 1000 / 60);
 
+setInterval(draw, 1000 / 60);

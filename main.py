@@ -19,19 +19,21 @@ result_list = []
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def clear_data():
+	for folder in ["origin", "heatmap"]:
+		for f in os.listdir(f"static/uploads/{folder}"):
+			os.remove(os.path.join(f"static/uploads/{folder}", f))
+	file_names.clear()
+	pred_list.clear()
+	result_list.clear()
+
 @app.route('/')
-def upload_form():
+def home():
 	return render_template('upload_and_result.html')
 
 @app.route('/', methods=['POST'])
 def upload_image():
-	#delete old files
-	for f in os.listdir("static/uploads/origin/"):
-		os.remove(os.path.join("static/uploads/origin/", f))
-	for f in os.listdir("static/uploads/heatmap/"):
-		os.remove(os.path.join("static/uploads/heatmap/", f))
-	#clear array to prevent showing old image
-	file_names.clear()
+	clear_data()
 
 	if 'files[]' not in request.files:
 		flash('No file part')
@@ -61,42 +63,20 @@ def download_file():
 #function to show detail of clicked image
 @app.route('/diagnose/', methods=['POST'])
 def diagnose():
-	files = request.files.getlist('files[]')
-	for file in files:
-		if file and allowed_file(file.filename):
-			filename = secure_filename(file.filename)
-			file_names.append(filename)
-			img = image.load_img("static/uploads/origin/" + filename)
-			pred,result = prediction(img)
-			pred_list.append(pred)
-			result_list.append(result)
-
-	show_data = request.form['detail_of_case']
 	img_index = request.form['img_index']
 	data_to_show = True
 	show_result = False
 
-	return render_template('upload_and_result.html', filenames=file_names,prediction=pred_list,results=result_list,detail=show_data,data_to_show=data_to_show,show_result=show_result,img_index=int(img_index))
+	return render_template('upload_and_result.html', filenames=file_names,prediction=pred_list,results=result_list,data_to_show=data_to_show,show_result=show_result,img_index=int(img_index))
 
 #function to show AI result of current image
 @app.route('/diagnose/result', methods=['POST'])
 def diagnose_result():
-	files = request.files.getlist('files[]')
-	for file in files:
-		if file and allowed_file(file.filename):
-			filename = secure_filename(file.filename)
-			file_names.append(filename)
-			img = image.load_img("static/uploads/origin/" + filename)
-			pred,result = prediction(img)
-			pred_list.append(pred)
-			result_list.append(result)
-
-	show_data = request.form['detail_of_case']
 	img_index = request.form['img_index']
 	data_to_show = True
 	show_result = True
 
-	return render_template('upload_and_result.html', filenames=file_names,prediction=pred_list,results=result_list,detail=show_data,data_to_show=data_to_show,show_result=show_result,img_index=int(img_index))
+	return render_template('upload_and_result.html', filenames=file_names,prediction=pred_list,results=result_list,data_to_show=data_to_show,show_result=show_result,img_index=int(img_index))
 
 if __name__ == "__main__":
     app.run()

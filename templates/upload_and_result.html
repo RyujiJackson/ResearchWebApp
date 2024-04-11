@@ -56,19 +56,18 @@
 		{% endif %}
 
 		{% if data_to_show == True: %}
-			<div style="height:800px;width:1850px;border:0px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+			<div style="height:700px;width:1850px;border:0px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
 				<table>
 					<tr>
 						<td>
-							
 							<div id="canvas-container">
-								<!--<img id="sourceImage" src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512" />-->
-								<img id="sourceImage" src="https://www.w3schools.com/images/w3schools_green.jpg" width="512" height="512" />
+								<img id="sourceImage" src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512"/>
+								<!--<img id="sourceImage" src="https://www.w3schools.com/images/w3schools_green.jpg" width="512" height="512" />-->
 								<canvas id="myCanvas" width="512" height="512"></canvas>
 							</div>
 							<button id="zoom-in">Zoom In</button>
 							<button id="zoom-out">Zoom Out</button>	
-							
+							<button id="undo">Undo</button>
 						</td>
 						<td>
 							<table class ="checklist" style="height: 500px;width: 500px; margin: 5px;">

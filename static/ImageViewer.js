@@ -8,6 +8,10 @@ let offsetY = 0;
 var isMiddleMouseDown = false;
 var prevMouseX, prevMouseY;
 
+document.addEventListener('mousemove', handleMouseMove);
+document.addEventListener('mouseup', handleMouseUp);
+canvas.addEventListener('mousedown', handleMouseDown);
+
 document.getElementById('zoom-in').addEventListener('click', function() {
     scale += 0.1;
     applyZoom();
@@ -22,9 +26,9 @@ document.getElementById('zoom-out').addEventListener('click', function() {
 // Function to apply zoom
 function applyZoom() {
     canvas.style.transform = `scale(${scale})`;
-    canvas.style.transformOrigin = 'top left';
+    //canvas.style.transformOrigin = 'top left';
     sourceImage.style.transform = `scale(${scale})`;
-    sourceImage.style.transformOrigin = 'top left';
+    //sourceImage.style.transformOrigin = 'top left';
 
     // Adjust offset to keep the panning consistent with zooming
     offsetX *= scale;
@@ -61,12 +65,9 @@ function handleMouseMove(event) {
     }
 }
 
-function handleMouseUp() {
+function handleMouseUp(event) {
     if (event.button === 1) {
         isMiddleMouseDown = false;
     }
 }
 
-document.addEventListener('mousemove', handleMouseMove);
-document.addEventListener('mouseup', handleMouseUp);
-canvas.addEventListener('mousedown', handleMouseDown);

@@ -36,7 +36,7 @@
 						{% for filename in filenames %}
 						<th>
 							<form method="POST" action="{{ url_for('diagnose') }}">
-								<input type="hidden" name="img_index" value="{{loop.index-1}}">
+								<input type="hidden" name="to_get_img_index" value="{{loop.index-1}}">
 								<button name="detail_of_case" type="submit" value="{{filename}}">
 									<img src="../static/uploads/origin/{{filename}}" width="128" height="128">
 								</button>
@@ -124,7 +124,7 @@
 									<th>
 										<form method="POST" action="{{ url_for('diagnose_result') }}">
 											<input type="hidden" name="img_index" value="{{img_index}}">
-											<button name="detail_of_case" type="submit" value="{{filename}}">
+											<button name="ai_result" type="submit" value="{{filename}}">
 												Show AI diagnose result
 											</button>
 										</form> 									

@@ -5,12 +5,13 @@ var undoButton = document.getElementById("undo")
 var mouse_on_canvas = {x:0, y:0};
 var temp = 0;
 const coordinates = [];
-var prevent = false
+var prevent = false;
 
-
+const imgIndex = document.querySelector('input[name="to_get_img_index"]').value;
 canvas.addEventListener('click', onClick);
 canvas.addEventListener('contextmenu', rightClick);
 undoButton.addEventListener('click', undoClick);
+
 
 function onClick(event) {
     if(!prevent){
@@ -24,8 +25,8 @@ function onClick(event) {
             if(((event.clientX <= rect.right)  && (event.clientY <= rect.bottom)))
             {
                 temp = temp + 1
-                draw()
                 coordinates.push({ x: mouse_on_canvas.x, y: mouse_on_canvas.y });
+                draw()
             }
         }
 
@@ -102,6 +103,27 @@ function draw_polygon() {
     
     c.closePath();
     c.stroke();
+    saveArray(coordinates);
 }
+
+//save array
+async function saveArray(arrayData) {
+    try {
+      const response = await fetch("/save_array", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ array: arrayData ,imgIndex}),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error saving array: ${response.statusText}`);
+      }
+  
+      const data = await response.json();
+      console.log(data.message);  // Handle success message
+    } catch (error) {
+      console.error("Error:", error);  // Handle errors
+    }
+  }
 
 setInterval(draw, 1000 / 60);

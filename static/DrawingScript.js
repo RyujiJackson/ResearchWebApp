@@ -2,19 +2,32 @@
 var canvas = document.getElementById("myCanvas");
 var c  = canvas.getContext("2d");
 var undoButton = document.getElementById("undo")
+var drawingButton = document.getElementById("drawing-toggle")
 var mouse_on_canvas = {x:0, y:0};
 var temp = 0;
 const coordinates = [];
-var prevent = false;
+var preventDrawing = true;
+
+
 
 const imgIndex = document.querySelector('input[name="to_get_img_index"]').value;
 canvas.addEventListener('click', onClick);
 canvas.addEventListener('contextmenu', rightClick);
 undoButton.addEventListener('click', undoClick);
+drawingButton.addEventListener('click', toggleOnClick);
 
+function toggleOnClick() {
+    preventDrawing = !preventDrawing; // Toggle the prevent flag
+  // Optionally change button text based on state (active/inactive)
+  if (preventDrawing) {
+    toggleButton.textContent = "Enable Drawing";
+  } else {
+    toggleButton.textContent = "Disable Drawing";
+  }
+}
 
 function onClick(event) {
-    if(!prevent){
+    if(!preventDrawing){
         var rect = canvas.getBoundingClientRect();
         var scaleX = canvas.width / rect.width;
         var scaleY = canvas.height / rect.height;
@@ -36,7 +49,7 @@ function onClick(event) {
 function rightClick(event) {
     event.preventDefault();
     if (coordinates.length > 2) {
-        prevent=true
+        preventDrawing=true
 
         var rect = canvas.getBoundingClientRect();
         var scaleX = canvas.width / rect.width;
@@ -59,7 +72,7 @@ function undoClick(event) {
         temp--;
         coordinates.pop(); // Remove the last point from the coordinates array
         c.reset(); // context reset
-        prevent = false; // to handle when undo right click
+        preventDrawing = false; // to handle when undo right click
         draw(); // Redraw the canvas without the removed point
     }
 }

@@ -1,7 +1,10 @@
 var canvas = document.getElementById("myCanvas");
 var c  = canvas.getContext("2d");
 var sourceImage = document.getElementById("sourceImage");
+var zoomButton = document.getElementById("zoom-button");
+var canvasContainer = document.getElementById("canvas-container");
 var preventPanning = false;
+var preventZoom = true;
 
 let scale = 1;
 let offsetX = 0;
@@ -9,12 +12,14 @@ let offsetY = 0;
 var isMouseDown = false;
 var prevMouseX, prevMouseY;
 
-document.addEventListener('mousemove', handleMouseMove);
-document.addEventListener('mouseup', handleMouseUp);
-canvas.addEventListener('mousedown', handleMouseDown);
+canvasContainer.addEventListener('mousemove', handleMouseMove);
+canvasContainer.addEventListener('mouseup', handleMouseUp);
+canvasContainer.addEventListener('mousedown', handleMouseDown);
 //to prevent panning when drawingButton clicked
 drawingButton.addEventListener('click', togglePanning);
+zoomButton.addEventListener('click', toggleZoom);
 
+/*
 document.getElementById('zoom-in').addEventListener('click', function() {
     scale += 0.1;
     applyZoom();
@@ -24,6 +29,27 @@ document.getElementById('zoom-in').addEventListener('click', function() {
 document.getElementById('zoom-out').addEventListener('click', function() {
     scale -= 0.1;
     applyZoom();
+});
+*/
+
+//function to handle enabling/disabling zooming
+function toggleZoom() {
+    preventZoom = !preventZoom;
+
+    if(preventZoom) {
+        zoomButton.textContent = "Enable Zooming";
+    } else {
+        zoomButton.textContent = "Disable Zooming";
+    }
+}
+
+canvasContainer.addEventListener('wheel', function(event) {
+    if (!preventZoom) {
+        event.preventDefault(); // Prevent default scrolling behavior
+        const deltaY = event.deltaY; // Get scroll delta (positive for zoom in, negative for zoom out)
+        scale += deltaY * 0.0004; // Adjust zoom amount based on scroll amount
+        applyZoom();
+    }
 });
 
 // Function to apply zoom
@@ -77,10 +103,5 @@ function handleMouseUp(event) {
 function togglePanning() {
     preventPanning = !preventPanning; // Toggle the prevent flag
   // Optionally change button text based on state (active/inactive)
-  if (preventPanning) {
-    toggleButton.textContent = "Enable Panning";
-  } else {
-    toggleButton.textContent = "Disable Panning";
-  }
 }
 

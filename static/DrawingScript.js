@@ -20,9 +20,9 @@ function toggleOnClick() {
     preventDrawing = !preventDrawing; // Toggle the prevent flag
   // Optionally change button text based on state (active/inactive)
   if (preventDrawing) {
-    toggleButton.textContent = "Enable Drawing";
+    drawingButton.textContent = "Enable Drawing";
   } else {
-    toggleButton.textContent = "Disable Drawing";
+    drawingButton.textContent = "Disable Drawing";
   }
 }
 

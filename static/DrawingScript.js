@@ -6,7 +6,6 @@ var drawingButton = document.getElementById("drawing-toggle")
 var mouse_on_canvas = {x:0, y:0};
 var temp = 0;
 const coordinates = [];
-var preventDrawing = true;
 
 
 
@@ -14,20 +13,19 @@ const imgIndex = document.querySelector('input[name="to_get_img_index"]').value;
 canvas.addEventListener('click', onClick);
 canvas.addEventListener('contextmenu', rightClick);
 undoButton.addEventListener('click', undoClick);
-drawingButton.addEventListener('click', toggleOnClick);
+drawingButton.addEventListener('click', toggleDrawing);
 
-function toggleOnClick() {
-    preventDrawing = !preventDrawing; // Toggle the prevent flag
-  // Optionally change button text based on state (active/inactive)
-  if (preventDrawing) {
-    drawingButton.textContent = "Enable Drawing";
-  } else {
-    drawingButton.textContent = "Disable Drawing";
-  }
+function toggleDrawing() {
+    window.globalState.preventDrawing = !window.globalState.preventDrawing;
+    if (!window.globalState.preventDrawing) {
+        drawingButton.textContent = "Enabling Drawing";
+      } else if(window.globalState.preventDrawing){
+        drawingButton.textContent = "Disabling Drawing";
+      }
 }
 
 function onClick(event) {
-    if(!preventDrawing){
+    if(!window.globalState.preventDrawing){
         var rect = canvas.getBoundingClientRect();
         var scaleX = canvas.width / rect.width;
         var scaleY = canvas.height / rect.height;
@@ -49,7 +47,12 @@ function onClick(event) {
 function rightClick(event) {
     event.preventDefault();
     if (coordinates.length > 2) {
-        preventDrawing=true
+        window.globalState.preventDrawing=true;
+        if (!window.globalState.preventDrawing) {
+            drawingButton.textContent = "Enabling Drawing";
+          } else if(window.globalState.preventDrawing){
+            drawingButton.textContent = "Disabling Drawing";
+          }
 
         var rect = canvas.getBoundingClientRect();
         var scaleX = canvas.width / rect.width;
@@ -67,12 +70,19 @@ function rightClick(event) {
     
 }
 
-function undoClick(event) {
+function undoClick() {
     if (coordinates.length > 0) {
         temp--;
         coordinates.pop(); // Remove the last point from the coordinates array
         c.reset(); // context reset
-        preventDrawing = false; // to handle when undo right click
+        /*
+        window.globalState.preventDrawing = false; // to handle when undo right click
+        if (!window.globalState.preventDrawing) {
+            drawingButton.textContent = "Enabling Drawing";
+          } else if(window.globalState.preventDrawing){
+            drawingButton.textContent = "Disabling Drawing";
+          }
+          */
         draw(); // Redraw the canvas without the removed point
     }
 }

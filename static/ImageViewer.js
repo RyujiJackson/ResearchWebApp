@@ -3,7 +3,6 @@ var c  = canvas.getContext("2d");
 var sourceImage = document.getElementById("sourceImage");
 var zoomButton = document.getElementById("zoom-button");
 var canvasContainer = document.getElementById("canvas-container");
-var preventPanning = false;
 var preventZoom = true;
 
 let scale = 1;
@@ -16,30 +15,16 @@ canvasContainer.addEventListener('mousemove', handleMouseMove);
 canvasContainer.addEventListener('mouseup', handleMouseUp);
 canvasContainer.addEventListener('mousedown', handleMouseDown);
 //to prevent panning when drawingButton clicked
-drawingButton.addEventListener('click', togglePanning);
 zoomButton.addEventListener('click', toggleZoom);
-
-/*
-document.getElementById('zoom-in').addEventListener('click', function() {
-    scale += 0.1;
-    applyZoom();
-});
-
-// Function to handle zoom out
-document.getElementById('zoom-out').addEventListener('click', function() {
-    scale -= 0.1;
-    applyZoom();
-});
-*/
 
 //function to handle enabling/disabling zooming
 function toggleZoom() {
     preventZoom = !preventZoom;
 
-    if(preventZoom) {
-        zoomButton.textContent = "Enable Zooming";
+    if(!preventZoom) {
+        zoomButton.textContent = "Enabling Zoom";
     } else {
-        zoomButton.textContent = "Disable Zooming";
+        zoomButton.textContent = "Disabling Zoom";
     }
 }
 
@@ -74,7 +59,7 @@ function applyPan() {
 
 // Function to handle mouse down event for panning
 function handleMouseDown(event) {
-    if (!preventPanning && event.button === 0) { // Check if left mouse button is pressed
+    if (window.globalState.preventDrawing && event.button === 0) { // Check if left mouse button is pressed
         isMouseDown = true;
         prevMouseX = event.clientX;
         prevMouseY = event.clientY;
@@ -83,7 +68,7 @@ function handleMouseDown(event) {
 }
 
 function handleMouseMove(event) {
-    if (!preventPanning && isMouseDown) {
+    if (window.globalState.preventDrawing && isMouseDown) {
         let deltaX = event.clientX - prevMouseX;
         let deltaY = event.clientY - prevMouseY;
         prevMouseX = event.clientX;
@@ -99,9 +84,3 @@ function handleMouseUp(event) {
         isMouseDown = false;
     }
 }
-
-function togglePanning() {
-    preventPanning = !preventPanning; // Toggle the prevent flag
-  // Optionally change button text based on state (active/inactive)
-}
-

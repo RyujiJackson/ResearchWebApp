@@ -24,6 +24,12 @@
     background-color: #FBD603;
     width: 512;
     height: 512;
+    justify-content: center; 
+    align-items: center; 
+}
+
+#canvas-container canvas:hover{
+    cursor: zoom-in; 
 }
 
 #myCanvas{

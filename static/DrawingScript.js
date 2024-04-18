@@ -9,7 +9,7 @@ const coordinates = [];
 
 
 
-const imgIndex = document.querySelector('input[name="to_get_img_index"]').value;
+const imgIndex = document.querySelector('input[name="img_index"]').value;
 canvas.addEventListener('click', onClick);
 canvas.addEventListener('contextmenu', rightClick);
 undoButton.addEventListener('click', undoClick);

@@ -8,7 +8,7 @@ from prediction_grad import *
 import shutil
 from datetime import datetime
 
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg','dcm'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg','DCM'])
 
 #below this message is web function part
 #array to store filenames,pred and results

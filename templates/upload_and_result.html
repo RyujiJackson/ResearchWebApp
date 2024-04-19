@@ -56,7 +56,7 @@
 		{% endif %}
 
 		{% if data_to_show == True: %}
-			<div style="height:1300px;width:3000px;border:0px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+			<div style="height:700px;width:3000px;border:0px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
 				<table>
 					<tr>
 						<td>
@@ -65,11 +65,11 @@
 								<!--<img id="sourceImage" src="https://www.w3schools.com/images/w3schools_green.jpg" width="512" height="512" />-->
 								<canvas id="myCanvas" width="512" height="512"></canvas>
 							</div>
-							<tr>
-								<button id="drawing-toggle">Disabling Drawing</button>
-								<button id="zoom-button">Disabling Zoom</button>
-								<button id="undo">Undo</button>
-							</tr>
+							<td style="text-align: center;">
+								<button id="drawing-toggle" style="display: block; width:150px; height: 50px;">Disabling Drawing</button>
+								<button id="zoom-button" style="display: block; width:150px; height: 50px;">Disabling Zoom</button>
+								<button id="undo" style="display: block; width:150px; height: 50px;">Undo</button>
+							</td>
 						</td>
 						<td>
 							<table class ="checklist" style="height: 500px;width: 500px; margin: 5px;">

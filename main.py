@@ -1,14 +1,17 @@
 import os
 import io
+
+import pydicom.errors
 from app import app
 from flask import Flask,flash,request,redirect,render_template,send_file,jsonify
 from werkzeug.utils import secure_filename
 from keras.preprocessing import image
 from prediction_grad import *
 import shutil
-from datetime import datetime
+import pydicom  # For DICOM file handling
+from PIL import Image  # For image conversion
 
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg','DCM'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg','dcm'])
 
 #below this message is web function part
 #array to store filenames,pred and results
@@ -49,6 +52,7 @@ def clear_data():
 		for f in os.listdir(f"static/uploads/{folder}"):
 			os.remove(os.path.join(f"static/uploads/{folder}", f))
 	
+	empty_directory("static/uploads/DICOM")
 	empty_directory("static/annotation")
 	file_names.clear()
 	pred_list.clear()
@@ -65,14 +69,49 @@ def upload_image():
 	if 'files[]' not in request.files:
 		flash('No file part')
 		return redirect(request.url)
+	
 	files = request.files.getlist('files[]')
 
 	for file in files:
+		
+
 		if file and allowed_file(file.filename):
 			filename = secure_filename(file.filename)
+			
+			# Check for DICOM format
+			if filename.endswith('.DCM'):
+				#convert dicom to png
+				try:
+					file.save(os.path.join('static/uploads/DICOM/', filename))
+					# Read DICOM data using pydicom
+					dataset = pydicom.dcmread(os.path.join('static/uploads/DICOM/', filename))
+					
+					#change file extension from dcm to png
+					filename, _ = os.path.splitext(secure_filename(filename))  # Separate filename and extension
+					filename = f"{filename}.png"
+
+					arr = dataset.pixel_array.astype(float) # Pixel Data を ndarray に変換
+					arr_normalized = (arr / arr.max())*255
+					arr_normalized = np.uint8(arr_normalized) # float to int
+
+					# Create a 3-channel image by replicating the grayscale data for all channels
+					img = np.repeat(arr_normalized[..., None], 3, axis=2)  # Replicate for RGB
+
+					#save processed Dicom image
+					img = Image.fromarray(arr_normalized, mode="L")
+					img = img.convert('RGB')  # Convert to RGB mode
+					img.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+				except pydicom.errors.InvalidDicomError:
+					flash(f"Error processing DICOM file: {filename}")
+					continue
+			else:
+				#img = Image.open(file)
+				file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+				img = image.load_img("static/uploads/origin/" + filename)
+			
+			#store edited filename into file_names array in case of uploaded DICOM file
 			file_names.append(filename)
-			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-			img = image.load_img("static/uploads/origin/" + filename)
+
 			pred,result = prediction(img)
 			pred_list.append(pred)
 			result_list.append(result)

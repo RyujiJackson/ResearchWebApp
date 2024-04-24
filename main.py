@@ -61,7 +61,7 @@ def clear_data():
 @app.route('/')
 def home():
 	return render_template('upload_and_result.html')
-
+#handle image upload
 @app.route('/', methods=['POST'])
 def upload_image():
 	clear_data()

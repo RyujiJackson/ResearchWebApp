@@ -56,7 +56,7 @@
 		{% endif %}
 
 		{% if data_to_show == True: %}
-			<div style="height:700px;width:3000px;border:0px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+			<div style="height:1500px;width:3000px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
 				<table>
 					<tr>
 						<td>
@@ -65,10 +65,11 @@
 								<!--<img id="sourceImage" src="https://www.w3schools.com/images/w3schools_green.jpg" width="512" height="512" />-->
 								<canvas id="myCanvas" width="512" height="512"></canvas>
 							</div>
-							<td style="text-align: center;">
+							<td style="text-align: center;width:800px;" >
 								<button id="drawing-toggle" style="display: block; width:150px; height: 50px;">Disabling Drawing</button>
 								<button id="zoom-button" style="display: block; width:150px; height: 50px;">Disabling Zoom</button>
 								<button id="undo" style="display: block; width:150px; height: 50px;">Undo</button>
+								<button id="open_windowing" style="display: block; width:150px; height: 50px;">Windowing Process</button>
 							</td>
 						</td>
 						<td>
@@ -135,33 +136,37 @@
 							</table>
 						</td>
 						<td>
-						{% if show_result == True: %}
-							<div id="container" style="height:600px;width:800px;border:0px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
-								<table>
-								<tr>
-									<td>
-										<img class="img" src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512"/>
-										<img class="img_top" src="../static/uploads/heatmap/{{filenames[img_index]}}" width="512" height="512"/>
-									</td>
-									<td style="font-size:1.5vw;">
-										<p>感染する確率 : {{prediction[img_index]}}%</p>
-										<br>
-										<p>診断結果 : {{results[img_index]}}</p>
-										<br>
-										<a href="{{ url_for('.download_file') }}">Download heatmaps</a>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<input type="range" id="range" min="0" max="100" value="50"><br><br>
-									</td>
-									<td>
-									</td>
-								</tr>
-								</table>
-							</div>
-						{% endif %}
+							{% if show_result == True: %}
+								<div id="container" style="height:600px;width:800px;border:0px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+									<table>
+									<tr>
+										<td>
+											<img class="img" src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512"/>
+											<img class="img_top" src="../static/uploads/heatmap/{{filenames[img_index]}}" width="512" height="512"/>
+										</td>
+										<td style="font-size:1.5vw;">
+											<p>感染する確率 : {{prediction[img_index]}}%</p>
+											<br>
+											<p>診断結果 : {{results[img_index]}}</p>
+											<br>
+											<a href="{{ url_for('.download_file') }}">Download heatmaps</a>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="range" id="range" min="0" max="100" value="50"><br><br>
+										</td>
+										<td>
+										</td>
+									</tr>
+									</table>
+								</div>
+							{% endif %}
 						</td>
+						
+					</tr>
+					<tr>
+						
 					</tr>
 				</table>
 			</div>

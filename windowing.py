@@ -1,6 +1,10 @@
 import pydicom
 import numpy as np
 import matplotlib.pyplot as plt
+import io
+import base64
+from flask import jsonify
+from PIL import Image  # For image conversion
 
 def show_dicom_image(dicom_file, window_level=None, window_width=None):
   """
@@ -31,6 +35,8 @@ def show_dicom_image(dicom_file, window_level=None, window_width=None):
   image_data = (image_data * slope) + intercept
   
 
+  
+  """
   fig = plt.figure()
   # Display image using Matplotlib
   fig.add_subplot(221)
@@ -38,7 +44,7 @@ def show_dicom_image(dicom_file, window_level=None, window_width=None):
   plt.title(f"{dicom_file} - DICOM Image")
   plt.colorbar()
   plt.axis('off')
-
+  """
 
 
 
@@ -49,7 +55,33 @@ def show_dicom_image(dicom_file, window_level=None, window_width=None):
     image_data[image_data < min_window] = min_window
     image_data[image_data > max_window] = max_window
     image_data = np.clip(image_data, min_window, max_window)
-
+    print(image_data)
+    return image_data
+    
+"""
+    processed_image_bytes = BytesIO()
+    print(processed_image_bytes)
+    img = Image.fromarray(image_data.astype(np.uint8), mode='L')
+    img.save(processed_image_bytes, format='PNG')
+    processed_image_data = processed_image_bytes.getvalue()
+    print(processed_image_data)
+    base64_image = base64.b64encode(processed_image_data).decode('utf-8')
+    print(base64_image)
+    print(jsonify({'processed_image': base64_image}))
+    return jsonify({'processed_image': base64_image})
+"""
+"""
+  # Convert image to PNG byte array
+    plt.figure(figsize=(5, 5))
+    plt.imshow(image_data, cmap="gray")
+    plt.axis("off")
+    
+    plt.savefig(buf, format="png")
+    plt.close()
+    
+    return image_data
+"""
+"""
   fig.add_subplot(222)
   plt.imshow(image_data, cmap='gray')
   plt.title(f"{dicom_file} - DICOM Image")
@@ -57,6 +89,9 @@ def show_dicom_image(dicom_file, window_level=None, window_width=None):
   plt.axis('off')
 
   plt.show()
+  """
+  
+  
 """
 
   # Display image using Matplotlib
@@ -71,7 +106,7 @@ def show_dicom_image(dicom_file, window_level=None, window_width=None):
 """
 
 
-
+"""
 # Example usage
 dicom_path = "static/uploads/DICOM/20150414000010001.DCM"
 
@@ -80,3 +115,4 @@ window_level = 3000
 window_width = 2000
 
 show_dicom_image(dicom_path, window_level, window_width)
+"""

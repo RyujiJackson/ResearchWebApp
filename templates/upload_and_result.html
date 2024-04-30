@@ -70,6 +70,31 @@
 								<button id="zoom-button" style="display: block; width:150px; height: 50px;">Disabling Zoom</button>
 								<button id="undo" style="display: block; width:150px; height: 50px;">Undo</button>
 								<button id="open_windowing" style="display: block; width:150px; height: 50px;">Windowing Process</button>
+								<div>
+								<label for="window_level">Window Level:</label>
+								<input type="range" id="window_level" min="1" max="4096" value="500" onchange="updateImage()">
+								</div>
+								<div>
+								<label for="window_width">Window Width:</label>
+								<input type="range" id="window_width" min="1" max="4096" value="1000" onchange="updateImage()">
+								</div>
+								<!--
+								<table>
+									<h1>DICOM Image Windowing</h1>
+									<img id="processed_image" src="" alt="Processed Image" width="512" height="512">
+    								<div>
+        								<label for="window_level">Window Level:</label>
+        								<input type="range" id="window_level" min="1" max="4096" value="500" onchange="updateImage()">
+    								</div>
+    								<div>
+        								<label for="window_width">Window Width:</label>
+        								<input type="range" id="window_width" min="1" max="4096" value="1000" onchange="updateImage()">
+    								</div>
+    								
+    								
+								</table>
+								-->
+
 							</td>
 						</td>
 						<td>
@@ -144,7 +169,7 @@
 											<img class="img" src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512"/>
 											<img class="img_top" src="../static/uploads/heatmap/{{filenames[img_index]}}" width="512" height="512"/>
 										</td>
-										<td style="font-size:1.5vw;">
+										<td>
 											<p>感染する確率 : {{prediction[img_index]}}%</p>
 											<br>
 											<p>診断結果 : {{results[img_index]}}</p>
@@ -174,6 +199,8 @@
 	</body>
 </html>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <!-- To use node JS to save checkbox state-->
 <script src="http://code.jquery.com/jquery.js"></script>
 <!-- This JavaScript file is required to load the XpressDox interview as well as the code required to run it -->
@@ -195,3 +222,5 @@
     	imgTop.style.opacity = this.value / this.max;
 	});
 </script>
+
+<script src="../static/updateImage.js"></script>

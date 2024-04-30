@@ -1,5 +1,5 @@
 import os
-import io
+from io import BytesIO
 
 import pydicom.errors
 from app import app
@@ -7,9 +7,11 @@ from flask import Flask,flash,request,redirect,render_template,send_file,jsonify
 from werkzeug.utils import secure_filename
 from keras.preprocessing import image
 from prediction_grad import *
+from windowing import *
 import shutil
 import pydicom  # For DICOM file handling
 from PIL import Image  # For image conversion
+
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg','dcm'])
 
@@ -143,6 +145,37 @@ def diagnose_result():
 	show_result = True
 
 	return render_template('upload_and_result.html', filenames=file_names,prediction=pred_list,results=result_list,data_to_show=data_to_show,show_result=show_result,img_index=int(img_index))
+
+@app.route("/update_image", methods=["POST"])
+def update_image():
+    data_to_show = True
+    show_result = False
+
+    window_level = int(request.form["window_level"])
+    window_width = int(request.form["window_width"])
+    img_index = int(request.form["imgIndex"])
+    #img_index = 0
+    filename_buffer, _  = os.path.splitext(secure_filename(file_names[img_index]))  # Separate filename and extension
+    filename_buffer = f"{filename_buffer}.dcm"
+
+
+    dicom_path = (os.path.join('static/uploads/DICOM/', filename_buffer))
+
+    image_data = show_dicom_image(dicom_path, window_level, window_width)
+    pil_image = Image.fromarray(image_data)
+    if pil_image.mode != 'RGB':
+        pil_image = pil_image.convert('RGB')
+    # Create an in-memory file-like object using BytesIO
+    img_byte_arr = io.BytesIO()
+    pil_image.save(img_byte_arr, format='PNG')  # Adjust format if needed
+
+    # Encode the image data in Base64 for efficient transfer
+    base64_encoded_data = base64.b64encode(img_byte_arr.getvalue()).decode('utf-8')
+
+    # Prepare data for the template
+    image_data_url = f"data:image/png;base64,{base64_encoded_data}"  # Construct image source data URL
+    
+    return render_template('upload_and_result.html', image_data_url=image_data_url)
 
 @app.route("/save_array", methods=["POST"])
 def save_array():

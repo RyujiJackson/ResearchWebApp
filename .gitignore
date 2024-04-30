@@ -1,3 +1,5 @@
 result/
-static/uploads/
+static/uploads/DICOM
+static/uploads/heatmap
+static/uploads/origin
 static/annotation/

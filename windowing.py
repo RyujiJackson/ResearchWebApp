@@ -33,19 +33,19 @@ def show_dicom_image(dicom_file, window_level=None, window_width=None):
 
   # Rescale image data
   image_data = (image_data * slope) + intercept
-  
-
-  
   """
   fig = plt.figure()
-  # Display image using Matplotlib
+    # Convert image to PNG byte array
   fig.add_subplot(221)
-  plt.imshow(image_data, cmap='gray')
-  plt.title(f"{dicom_file} - DICOM Image")
+  plt.imshow(image_data, cmap="gray")
   plt.colorbar()
-  plt.axis('off')
-  """
+  plt.axis("off")
 
+    # Display image using Matplotlib
+  fig.add_subplot(222)
+  plt.title('histogram ')
+  plt.hist(image_data)
+"""
 
 
   # Apply windowing (if provided)
@@ -54,11 +54,31 @@ def show_dicom_image(dicom_file, window_level=None, window_width=None):
     max_window = window_level + (window_width / 2)
     image_data[image_data < min_window] = min_window
     image_data[image_data > max_window] = max_window
-    image_data = np.clip(image_data, min_window, max_window)
+    #image_data = np.clip(image_data, min_window, max_window)
+    image_data = (image_data-min_window)/(max_window-min_window)*255.0
     print(image_data)
     return image_data
+
+    """
+
+    #return image_data
+  fig = plt.figure()
+    # Convert image to PNG byte array
+  fig.add_subplot(223)
+  plt.imshow(image_data, cmap="gray")
+  plt.colorbar()
+  plt.axis("off")
+
+  # Display image using Matplotlib
+  fig.add_subplot(224)
+  plt.title('histogram ')
+  plt.hist(image_data)
     
-"""
+    
+    #plt.savefig(buf, format="png")
+  plt.show()
+    
+
     processed_image_bytes = BytesIO()
     print(processed_image_bytes)
     img = Image.fromarray(image_data.astype(np.uint8), mode='L')
@@ -71,48 +91,23 @@ def show_dicom_image(dicom_file, window_level=None, window_width=None):
     return jsonify({'processed_image': base64_image})
 """
 """
-  # Convert image to PNG byte array
-    plt.figure(figsize=(5, 5))
-    plt.imshow(image_data, cmap="gray")
-    plt.axis("off")
-    
-    plt.savefig(buf, format="png")
-    plt.close()
-    
-    return image_data
-"""
-"""
-  fig.add_subplot(222)
-  plt.imshow(image_data, cmap='gray')
-  plt.title(f"{dicom_file} - DICOM Image")
-  plt.colorbar()
-  plt.axis('off')
-
-  plt.show()
-  """
-  
-  
-"""
-
-  # Display image using Matplotlib
-  fig.add_subplot(222)
-  plt.title('histogram ')
-  plt.hist(image_data)
-
-  # Display image using Matplotlib
-  fig.add_subplot(224)
-  plt.title('histogram ')
-  plt.hist(image_data)
-"""
+def get_windowing(data):
+    data = pydicom.dcmread(data)
+    dicom_fields = [data[('0028','1050')].value, #window center
+                    data[('0028','1051')].value] #window width
+                    #data[('0028','1052')].value, #intercept
+                    #data[('0028','1053')].value] #slope
+    print(dicom_fields)
 
 
-"""
 # Example usage
 dicom_path = "static/uploads/DICOM/20150414000010001.DCM"
 
 # With windowing (adjust values for your modality)
 window_level = 3000
 window_width = 2000
+get_windowing(dicom_path)
 
 show_dicom_image(dicom_path, window_level, window_width)
+
 """

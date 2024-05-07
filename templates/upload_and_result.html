@@ -36,9 +36,9 @@
 						{% for filename in filenames %}
 						<th>
 							<form method="POST" action="{{ url_for('diagnose') }}">
-								<input type="hidden" name="to_get_img_index" value="{{loop.index-1}}">
-								<button name="detail_of_case" type="submit" value="{{filename}}">
-									<img src="../static/uploads/origin/{{filename}}" width="128" height="128">
+								<input type="hidden" name="to_get_img_index" value="{{loop.index-1}}" data-index="{{ loop.index-1 }}">
+								<button name="detail_of_case" type="submit">
+									<img class = "clicked_image" src="../static/uploads/origin/{{filename}}" width="128" height="128">
 								</button>
 							</form> 
 						</th>
@@ -78,22 +78,6 @@
 								<label for="window_width">Window Width:</label>
 								<input type="range" id="window_width" min="1" max="4096" value="4096" onchange="updateImage()">
 								</div>
-								<!--
-								<table>
-									<h1>DICOM Image Windowing</h1>
-									<img id="processed_image" src="" alt="Processed Image" width="512" height="512">
-    								<div>
-        								<label for="window_level">Window Level:</label>
-        								<input type="range" id="window_level" min="1" max="4096" value="500" onchange="updateImage()">
-    								</div>
-    								<div>
-        								<label for="window_width">Window Width:</label>
-        								<input type="range" id="window_width" min="1" max="4096" value="1000" onchange="updateImage()">
-    								</div>
-    								
-    								
-								</table>
-								-->
 
 							</td>
 						</td>

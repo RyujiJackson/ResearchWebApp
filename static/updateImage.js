@@ -1,5 +1,6 @@
 function updateImage() {
-    var imgIndex = document.querySelector('input[name="to_get_img_index"]').value;
+    var imgIndex = document.querySelector('input[name="to_get_img_index"]').dataset.index;
+    
     var window_level = $("#window_level").val();
     var window_width = $("#window_width").val();
     $.ajax({
@@ -12,7 +13,7 @@ function updateImage() {
         },
         success: function(data) {
             $('#sourceImage').attr("src", "data:image/png:base64," + data);
-            console.log(imgIndex)
+            //alert(imgIndex);
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.error("Error:", textStatus, errorThrown);

@@ -15,7 +15,6 @@ def show_dicom_image(dicom_file, window_level=None, window_width=None):
       window_center (int, optional): Window center value (default: None, uses data range).
       window_width (int, optional): Window width value (default: None, uses data range).
   """
-
   dataset = pydicom.dcmread(dicom_file)
 
   # Get image data

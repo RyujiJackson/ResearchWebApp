@@ -11,6 +11,8 @@ from windowing import *
 import shutil
 import pydicom  # For DICOM file handling
 from PIL import Image  # For image conversion
+import matplotlib.pyplot as plt
+import urllib
 
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg','dcm'])
@@ -148,9 +150,6 @@ def diagnose_result():
 
 @app.route("/update_image", methods=["POST"])
 def update_image():
-    data_to_show = True
-    show_result = False
-
     window_level = int(request.form["window_level"])
     window_width = int(request.form["window_width"])
     img_index = int(request.form["imgIndex"])
@@ -168,14 +167,9 @@ def update_image():
     # Create an in-memory file-like object using BytesIO
     img_byte_arr = io.BytesIO()
     pil_image.save(img_byte_arr, format='PNG')  # Adjust format if needed
+    img_data = urllib.parse.quote(img_byte_arr.getvalue())
 
-    # Encode the image data in Base64 for efficient transfer
-    base64_encoded_data = base64.b64encode(img_byte_arr.getvalue()).decode('utf-8')
-
-    # Prepare data for the template
-    image_data_url = f"data:image/png;base64,{base64_encoded_data}"  # Construct image source data URL
-    
-    return render_template('upload_and_result.html', image_data_url=image_data_url)
+    return img_data
 
 @app.route("/save_array", methods=["POST"])
 def save_array():

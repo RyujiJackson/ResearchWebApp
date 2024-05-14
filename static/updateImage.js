@@ -1,6 +1,13 @@
+var filenameProcessed = false;
+var filename;
+
 function updateImage() {
-    var imgIndex = document.querySelector('input[name="to_get_img_index"]').dataset.index;
-    
+    if(!filenameProcessed)
+        {
+            filename = $('#sourceImage').attr("src").split('/').pop(); // Extract filename from sourceImage src attribute
+            filename = filename.replace(/\.png$/i, ".DCM");
+            filenameProcessed = true; // Set flag after processing
+        }
     var window_level = $("#window_level").val();
     var window_width = $("#window_width").val();
     $.ajax({
@@ -9,15 +16,17 @@ function updateImage() {
         data: {
             window_level: window_level,
             window_width: window_width,
-            imgIndex: imgIndex
+            filename: filename
         },
         success: function(data) {
             $('#sourceImage').attr("src", "data:image/png:base64," + data);
-            //alert(imgIndex);
+            //alert(filename);
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.error("Error:", textStatus, errorThrown);
+          //alert(filename);
           // Handle errors gracefully, e.g., display an error message
         }
     });
 }
+

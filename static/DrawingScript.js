@@ -95,7 +95,7 @@ function draw() {
     c.clearRect(0, 0, 50, 50);
     c.fillStyle = "red";
     c.font = "30px Arial";
-    c.fillText(temp,10,50);
+    //c.fillText(temp,10,50);
     // Accessing coordinates from the coordinates array using forEach loop
     coordinates.forEach(function(coordinate, index) {
         if(index>0)
@@ -115,7 +115,7 @@ function draw() {
 
 function draw_polygon() {
     c.clearRect(0, 0, canvas.width, canvas.height);
-    c.fillText(temp,10,50);
+    //c.fillText(temp,10,50);
     c.strokeStyle = "red";
     c.beginPath();
     c.moveTo(coordinates[0].x,coordinates[0].y);

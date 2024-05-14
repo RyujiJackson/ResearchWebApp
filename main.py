@@ -133,7 +133,7 @@ def download_file():
 #function to show detail of clicked image
 @app.route('/diagnose/', methods=['POST'])
 def diagnose():
-	img_index = request.form['to_get_img_index']
+	img_index = request.form['detail_of_case']
 	data_to_show = True
 	show_result = False
 
@@ -152,13 +152,9 @@ def diagnose_result():
 def update_image():
     window_level = int(request.form["window_level"])
     window_width = int(request.form["window_width"])
-    img_index = int(request.form["imgIndex"])
+    filename_update = (request.form["filename"])
     #img_index = 0
-    filename_buffer, _  = os.path.splitext(secure_filename(file_names[img_index]))  # Separate filename and extension
-    filename_buffer = f"{filename_buffer}.dcm"
-
-
-    dicom_path = (os.path.join('static/uploads/DICOM/', filename_buffer))
+    dicom_path = (os.path.join('static/uploads/DICOM/', filename_update))
 
     image_data = show_dicom_image(dicom_path, window_level, window_width)
     pil_image = Image.fromarray(image_data)

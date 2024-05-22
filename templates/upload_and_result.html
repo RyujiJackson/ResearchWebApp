@@ -62,23 +62,16 @@
 						<td>
 							<div id="canvas-container">
 								<img id="sourceImage" src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512"/>
-								<!--<img id="sourceImage" src="https://www.w3schools.com/images/w3schools_green.jpg" width="512" height="512" />-->
 								<canvas id="myCanvas" width="512" height="512"></canvas>
 							</div>
-							<td style="text-align: center;width:800px;" >
+							<td style="text-align: center;width:150px;" >
 								<button id="drawing-toggle" style="display: block; width:150px; height: 50px;">Disabling Drawing</button>
 								<button id="zoom-button" style="display: block; width:150px; height: 50px;">Disabling Zoom</button>
 								<button id="undo" style="display: block; width:150px; height: 50px;">Undo</button>
-								<button id="open_windowing" style="display: block; width:150px; height: 50px;">Windowing Process</button>
-								<div>
 								<label for="window_level">Window Level:</label>
-								<input type="range" id="window_level" min="1" max="4096" value="2048" onchange="updateImage()">
-								</div>
-								<div>
+								<input type="range"  id="window_level" min="1" max="4096" value="2048" onchange="updateImage()">
 								<label for="window_width">Window Width:</label>
-								<input type="range" id="window_width" min="1" max="4096" value="4096" onchange="updateImage()">
-								</div>
-
+								<input type="range"  id="window_width" min="1" max="4096" value="4096" onchange="updateImage()">
 							</td>
 						</td>
 						<td>

@@ -181,6 +181,8 @@ def save_array():
 	print(array_data)
 	img_index = data["imgIndex"]
 	print(img_index)
+	annotation_filename = data["annotation_filename"]
+	print(annotation_filename)
   
 	directory = os.path.join("static/annotation/", img_index)
 
@@ -188,11 +190,11 @@ def save_array():
 		os.mkdir(directory)
 	
    	# Check if "array.txt" exists
-	if os.path.exists(os.path.join(directory,"array.txt")):
-		os.remove(os.path.join(directory,"array.txt"))
+	if os.path.exists(os.path.join(directory,annotation_filename)):
+		os.remove(os.path.join(directory,annotation_filename))
 	
 	try:
-		with open(os.path.join(directory,"array.txt"), "w") as f:
+		with open(os.path.join(directory,annotation_filename), "w") as f:
 			f.write(str(array_data))
 		return jsonify({"message": "Array saved successfully!"}), 201
 	except Exception as e:

@@ -65,6 +65,14 @@
 								<canvas id="myCanvas" width="512" height="512"></canvas>
 							</div>
 							<td style="text-align: center;width:150px;" >
+
+								<label for="options">病変を選択:</label>
+    							<select id="options" name="options" onchange="change_annotation_type()">
+       								<option value="0">Fold</option>
+        							<option value="1">Corpus</option>
+        							<option value="2">Antrum</option>
+								</select>
+
 								<button id="drawing-toggle" style="display: block; width:150px; height: 50px;">Disabling Drawing</button>
 								<button id="zoom-button" style="display: block; width:150px; height: 50px;">Disabling Zoom</button>
 								<button id="undo" style="display: block; width:150px; height: 50px;">Undo</button>

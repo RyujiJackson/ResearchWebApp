@@ -6,6 +6,11 @@ var drawingButton = document.getElementById("drawing-toggle")
 var mouse_on_canvas = {x:0, y:0};
 var temp = 0;
 const coordinates = [];
+const fold_coord = [];
+const corpus_coord = [];
+const antrum_coord = [];
+var annotation_color;
+var annotation_filename;
 
 
 
@@ -15,7 +20,9 @@ canvas.addEventListener('contextmenu', rightClick);
 undoButton.addEventListener('click', undoClick);
 drawingButton.addEventListener('click', toggleDrawing);
 
+
 function toggleDrawing() {
+  change_anntotaion_type();
     window.globalState.preventDrawing = !window.globalState.preventDrawing;
     if (!window.globalState.preventDrawing) {
         drawingButton.textContent = "Enabling Drawing";
@@ -45,7 +52,7 @@ function onClick(event) {
 }
 
 function rightClick(event) {
-    event.preventDefault();
+  event.preventDefault();
     if (coordinates.length > 2) {
         window.globalState.preventDrawing=true;
         if (!window.globalState.preventDrawing) {
@@ -83,6 +90,7 @@ function undoClick() {
             drawingButton.textContent = "Disabling Drawing";
           }
           */
+         change_anntotaion_type()
         draw(); // Redraw the canvas without the removed point
     }
 }
@@ -92,9 +100,11 @@ function draw() {
     var lastpoint_y = 10000;
 
     shape_size = 10.0
-    c.clearRect(0, 0, 50, 50);
-    c.fillStyle = "red";
-    c.font = "30px Arial";
+    //c.clearRect(0, 0, 50, 50);
+    c.fillStyle = annotation_color;
+    c.strokeStyle = annotation_color;
+    
+    //c.font = "30px Arial";
     //c.fillText(temp,10,50);
     // Accessing coordinates from the coordinates array using forEach loop
     coordinates.forEach(function(coordinate, index) {
@@ -114,9 +124,10 @@ function draw() {
 }
 
 function draw_polygon() {
-    c.clearRect(0, 0, canvas.width, canvas.height);
+    //c.clearRect(0, 0, canvas.width, canvas.height);
     //c.fillText(temp,10,50);
-    c.strokeStyle = "red";
+    c.strokeStyle = annotation_color;
+    c.fillStyle = annotation_color;
     c.beginPath();
     c.moveTo(coordinates[0].x,coordinates[0].y);
 
@@ -135,7 +146,7 @@ async function saveArray(arrayData) {
       const response = await fetch("/save_array", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ array: arrayData ,imgIndex}),
+        body: JSON.stringify({ array: arrayData ,imgIndex,annotation_filename}),
       });
   
       if (!response.ok) {
@@ -148,5 +159,24 @@ async function saveArray(arrayData) {
       console.error("Error:", error);  // Handle errors
     }
   }
+
+function change_anntotaion_type(){
+  var dropDownValue = document.getElementById("options").value;
+  if(dropDownValue==0)
+    {
+      annotation_color = "red";
+      annotation_filename = "fold.txt";
+    }
+  else if(dropDownValue==1)
+    {
+      annotation_color = "green";
+      annotation_filename = "corpus.txt";
+    }
+  else if(dropDownValue==2)
+    {
+      annotation_color = "blue";
+      annotation_filename = "antrum.txt";
+    }
+}
 
 setInterval(draw, 1000 / 60);

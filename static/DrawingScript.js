@@ -19,6 +19,7 @@ canvas.addEventListener('click', onClick);
 canvas.addEventListener('contextmenu', rightClick);
 undoButton.addEventListener('click', undoClick);
 drawingButton.addEventListener('click', toggleDrawing);
+var dropDownValue = document.getElementById("options").value;
 
 
 function toggleDrawing() {
@@ -101,13 +102,14 @@ function draw() {
 
     shape_size = 10.0
     //c.clearRect(0, 0, 50, 50);
-    c.fillStyle = annotation_color;
-    c.strokeStyle = annotation_color;
+    
     
     //c.font = "30px Arial";
     //c.fillText(temp,10,50);
     // Accessing coordinates from the coordinates array using forEach loop
     coordinates.forEach(function(coordinate, index) {
+        c.fillStyle = annotation_color;
+        c.strokeStyle = annotation_color;
         if(index>0)
         {
             c.fillRect(coordinate.x-(shape_size/2), coordinate.y-(shape_size/2), shape_size, shape_size);
@@ -161,7 +163,6 @@ async function saveArray(arrayData) {
   }
 
 function change_anntotaion_type(){
-  var dropDownValue = document.getElementById("options").value;
   if(dropDownValue==0)
     {
       annotation_color = "red";

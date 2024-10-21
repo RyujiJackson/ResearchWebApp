@@ -64,7 +64,7 @@ def clear_data():
 
 @app.route('/')
 def home():
-	return render_template('upload_and_result.html')
+	return render_template('Diagnose.html')
 #handle image upload
 @app.route('/', methods=['POST'])
 def upload_image():
@@ -121,7 +121,7 @@ def upload_image():
 			result_list.append(result)
 			heatmap = gradcam(img)
 			image.save_img("static/uploads/heatmap/" + filename,heatmap)
-	return render_template('upload_and_result.html', filenames=file_names,prediction=pred_list,results=result_list)
+	return render_template('Diagnose.html', filenames=file_names,prediction=pred_list,results=result_list)
 
 #app route to redirect for file downloading
 @app.route('/download_file')
@@ -137,7 +137,7 @@ def diagnose():
 	data_to_show = True
 	show_result = False
 
-	return render_template('upload_and_result.html', filenames=file_names,prediction=pred_list,results=result_list,data_to_show=data_to_show,show_result=show_result,img_index=int(img_index))
+	return render_template('Diagnose.html', filenames=file_names,prediction=pred_list,results=result_list,data_to_show=data_to_show,show_result=show_result,img_index=int(img_index))
 
 #function to show AI result of current image
 @app.route('/diagnose/result', methods=['POST'])
@@ -146,7 +146,7 @@ def diagnose_result():
 	data_to_show = True
 	show_result = True
 
-	return render_template('upload_and_result.html', filenames=file_names,prediction=pred_list,results=result_list,data_to_show=data_to_show,show_result=show_result,img_index=int(img_index))
+	return render_template('Diagnose.html', filenames=file_names,prediction=pred_list,results=result_list,data_to_show=data_to_show,show_result=show_result,img_index=int(img_index))
 
 @app.route("/update_image", methods=["POST"])
 def update_image():

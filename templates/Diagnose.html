@@ -31,7 +31,7 @@
 						  <input type="file" name="files[]" multiple required>
 						</div>
 						<div class="file-path-wrapper">
-						  <input class="file-path validate" type="text" placeholder="Upload one or more files" readonly autocomplete="off">
+						  <input class="file-path validate" type="text" style="width: 300px; max-width: 100%;" placeholder="Upload one or more files" readonly autocomplete="off">
 						</div>
 					  </div>
 				</p>
@@ -71,12 +71,12 @@
 		{% endif %}
 
 		{% if data_to_show == True: %}
-			<div style="height:1500px;width:3000px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
-				<table>
+			<div style="border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif; min-width: 300px; min-height: 200px; overflow:auto;">
+				<table style="width: 1800px; table-layout: fixed;">
 					<tr>
 						<td>
 							<div id="canvas-container">
-								<img id="sourceImage" src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512"/>
+								<img id="sourceImage" src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512"  style="display: block;"/>
 								<canvas id="myCanvas" width="512" height="512"></canvas>
 							</div>
 							<td style="text-align: center;width:150px;" >
@@ -101,50 +101,50 @@
 							<table class ="checklist" style="height: 500px;width: 500px; margin: 5px;">
 								<tr>
 							  		<td>前庭部胃粘膜の判定
-										<ul class="list-group" style="list-style-type: none; padding:0px;">
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="zentei_inen{{filenames[img_index]}}_1" value="yes"> 平滑型</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="zentei_inen{{filenames[img_index]}}_2" value="yes"> 粗造型</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="zentei_inen{{filenames[img_index]}}_3" value="yes"> 中間型</li>
+										<ul>
+											<label><input type="checkbox" name="zentei_inen{{filenames[img_index]}}_1"> <span>平滑型</span></label>
+											<label><input type="checkbox" name="zentei_inen{{filenames[img_index]}}_2"> <span>粗造型</span></label>
+											<label><input type="checkbox" name="zentei_inen{{filenames[img_index]}}_3"> <span>中間型</span></label>
 										</ul>
 									</td>
 									<td>胃体部胃粘膜の判定
-										<ul class="list-group" style="list-style-type: none; padding:0px;">
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="itai_inen{{filenames[img_index]}}_1" value="yes"> 平滑型</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="itai_inen{{filenames[img_index]}}_2" value="yes"> 粗造型</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="itai_inen{{filenames[img_index]}}_3" value="yes"> 中間型</li>
+										<ul>
+											<label><input type="checkbox" name="itai_inen{{filenames[img_index]}}_1"> <span>平滑型</span></label>
+											<label><input type="checkbox" name="itai_inen{{filenames[img_index]}}_2"> <span>粗造型</span></label>
+											<label><input type="checkbox" name="itai_inen{{filenames[img_index]}}_3"> <span>中間型</span></label>
 										</ul>
 									</td>
 									<td>ひだの形状判定
-										<ul class="list-group" style="list-style-type: none; padding:0px;">
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida{{filenames[img_index]}}_1" value="yes"> 正常型(6S)</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida{{filenames[img_index]}}_2" value="yes"> 異常型(非6S)</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida{{filenames[img_index]}}_3" value="yes"> 中間型</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida{{filenames[img_index]}}_4" value="yes"> 消失型</li>
+										<ul>
+											<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span>正常型(6S)</span></label>
+											<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span>異常型(非6S)</span></label>
+											<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span>中間型</span></label>
+											<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span>消失型</span></label>
 										</ul>
 									</td>
 								</tr>
 								<tr>
 									<td>ひだの分布の判定
-										<ul class="list-group" style="list-style-type: none; padding:0px;">
-										  	<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida_bunpu{{filenames[img_index]}}_1" value="yes"> 萎縮なし</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida_bunpu{{filenames[img_index]}}_2" value="yes"> 軽度萎縮</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida_bunpu{{filenames[img_index]}}_3" value="yes"> 中等度萎縮</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="hida_bunpu{{filenames[img_index]}}_4" value="yes"> 高度萎縮</li>
+										<ul>
+											<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_1"> <span>萎縮なし</span></label>
+											<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_2"> <span>軽度萎縮</span></label>
+											<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_3"> <span>中等度萎縮</span></label>
+											<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_4"> <span>高度萎縮</span></label>
 										</ul>
 									</td>
 									<td>読影(感染有無)
-										<ul class="list-group" style="list-style-type: none; padding:0px;">
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="dokuei{{filenames[img_index]}}_1" value="yes"> 非感染</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="dokuei{{filenames[img_index]}}_2" value="yes"> 感染</li>
+										<ul>
+											<label><input type="checkbox" name="dokuei{{filenames[img_index]}}_1"> <span>非感染</span></label>
+											<label><input type="checkbox" name="dokuei{{filenames[img_index]}}_2"> <span>感染</span></label>
 										</ul>
 									</td>
 									<td>ABCD分類
-										<ul class="list-group" style="list-style-type: none; padding:0px;">
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="ABCD{{filenames[img_index]}}_1" value="yes"> A(PG-,Anti-)</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="ABCD{{filenames[img_index]}}_2" value="yes"> B(PG-,Anti+)</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="ABCD{{filenames[img_index]}}_3" value="yes"> C(PG+,Anti+)</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="ABCD{{filenames[img_index]}}_4" value="yes"> D(PG+,Anti-)</li>
-											<li class="list-group-item"><input type="checkbox" class="save-cb-state" name="ABCD{{filenames[img_index]}}_5" value="yes"> その他</li>
+										<ul>
+											<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_1"> <span>A(PG-,Anti-)</span></label>\
+											<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_2"> <span>B(PG-,Anti+)</span></label>
+											<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_3"> <span>C(PG+,Anti+)</span></label>
+											<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_4"> <span>D(PG+,Anti-)</span></label>
+											<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_5"> <span>その他</span></label>
 										</ul>
 									</td>
 								</tr>
@@ -166,8 +166,10 @@
 									<table>
 									<tr>
 										<td>
-											<img class="img" src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512"/>
-											<img class="img_top" src="../static/uploads/heatmap/{{filenames[img_index]}}" width="512" height="512"/>
+											<div class="image-container">
+												<img class="img" src="../static/uploads/origin/{{filenames[img_index]}}" width="512" height="512" />
+												<img class="img_top" src="../static/uploads/heatmap/{{filenames[img_index]}}" width="512" height="512" />
+											</div>
 										</td>
 										<td>
 											<p>感染する確率 : {{prediction[img_index]}}%</p>
@@ -177,13 +179,13 @@
 											<a href="{{ url_for('.download_file') }}">Download heatmaps</a>
 										</td>
 									</tr>
-									<tr>
+									<!--<tr>
 										<td>
 											<input type="range" id="range" min="0" max="100" value="50"><br><br>
 										</td>
 										<td>
 										</td>
-									</tr>
+									</tr>-->
 									</table>
 								</div>
 							{% endif %}

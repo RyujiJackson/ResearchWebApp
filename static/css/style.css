@@ -3,14 +3,21 @@
 	 border-radius: 10px;
 }
 
-.img{
-    position:absolute;
-    z-index:1;
+.image-container {
+    position: relative; /* Necessary for absolute positioning of child elements */
+    width: 512px; /* Ensure this matches the image dimensions */
+    height: 512px; /* Ensure this matches the image dimensions */
+    overflow: auto; /* Enable scrolling */
 }
 
-.img_top{
-    position:relative;
-    z-index:20;
+.img {
+    position: absolute;
+    z-index: 1;
+}
+
+.img_top {
+    position: absolute; /* Change to absolute for proper overlay */
+    z-index: 20;
     opacity: 0.5;
     transition: opacity 0.2s ease;
 }
@@ -22,26 +29,60 @@
     position:relative; 
     border: 1px solid #000;
     background-color: #FBD603;
-    width: 512;
-    height: 512;
-    justify-content: center; 
-    align-items: center; 
+    width: 512px;
+    height: 512px;
+    text-align: center; 
 }
 
 #canvas-container canvas:hover{
     cursor: zoom-in; 
 }
 
-#myCanvas{
-    position:relative;
-    z-index:20;
+#myCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 512px; /* Ensure the canvas fits the container */
+    height: 512px; /* Ensure the canvas fits the container */
 }
 
-#sourceImage{
-    position:absolute;
-    z-index:20;
+#sourceImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 512px; /* Ensure the image fits the container */
+    height: 512px; /* Ensure the image fits the container */
 }
 
 table,th,td {
     border: 1px solid;
+}
+
+.checklist {
+    width: 500px; /* Fixed width for the checklist */
+    margin: 5px;
+    border-collapse: collapse; /* Prevents double borders */
+}
+
+.checklist td {
+    vertical-align: top; /* Align text to the top of the cell */
+    width: 165px; /* Adjust width to fit content and maintain alignment */
+    padding: 10px; /* Space around text */
+    border: 1px solid #ccc; /* Optional: border for visual separation */
+}
+
+.checklist ul {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
+.checklist .list-group-item {
+    display: flex; /* Use flexbox for checkbox and label */
+    align-items: center; /* Center items vertically */
+}
+
+.checklist .list-group-item input {
+    margin-right: 5px; /* Space between checkbox and label */
 }

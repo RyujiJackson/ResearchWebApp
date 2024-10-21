@@ -100,12 +100,14 @@ function draw() {
     var lastpoint_x = 10000;
     var lastpoint_y = 10000;
 
-    shape_size = 10.0
+    shape_size = 5.0
     //c.clearRect(0, 0, 50, 50);
     
     
     //c.font = "30px Arial";
-    //c.fillText(temp,10,50);
+    //c.fillText(mouse_on_canvas.x,10,50);
+    //c.fillText(mouse_on_canvas.y,10,100);
+
     // Accessing coordinates from the coordinates array using forEach loop
     coordinates.forEach(function(coordinate, index) {
         c.fillStyle = annotation_color;

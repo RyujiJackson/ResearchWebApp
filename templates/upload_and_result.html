@@ -2,7 +2,10 @@
 <html>
 	<title>Upload and return image test</title>
 	<head>
-		<link rel="stylesheet" href="../static/style.css">
+		<link rel="stylesheet" href="../static/css/style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 	</head>
 	<body>
 		<h2>Select Gastric X-ray images to upload and display heatmap</h2>
@@ -21,11 +24,23 @@
 		<form method="post" action="/" enctype="multipart/form-data">
     		<dl>
 				<p>
-					<input type="file" name="files[]" multiple="true" autocomplete="off" required>
+					<!--<input class="waves-effect waves-light btn" type="file" name="files[]" multiple="true" autocomplete="off" required>-->
+					<div class="file-field input-field">
+						<div class="btn waves-effect waves-light">
+						  <span>Choose Files</span>
+						  <input type="file" name="files[]" multiple required>
+						</div>
+						<div class="file-path-wrapper">
+						  <input class="file-path validate" type="text" placeholder="Upload one or more files" readonly autocomplete="off">
+						</div>
+					  </div>
 				</p>
     		</dl>
     		<p>
-				<input type="submit" value="Submit">
+				<!--<input class="btn waves-effect waves-light" type="submit" value="Submit">-->
+				<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+					<i class="material-icons right">send</i>
+				</button>
 			</p>
 		</form>
 
@@ -190,13 +205,13 @@
 <script src="http://code.jquery.com/jquery.js"></script>
 <!-- This JavaScript file is required to load the XpressDox interview as well as the code required to run it -->
 
-<script src="../static/CheckboxState.js"></script>
+<script src="../static/js/CheckboxState.js"></script>
 
-<script src="../static/DrawingScript.js"></script>
+<script src="../static/js/DrawingScript.js"></script>
 
-<script src="../static/ImageViewer.js"></script>
+<script src="../static/js/ImageViewer.js"></script>
 
-<script src="../static/globalState.js"></script>
+<script src="../static/js/globalState.js"></script>
 
 <script>
 	//script to handle slider to change opacity
@@ -208,4 +223,4 @@
 	});
 </script>
 
-<script src="../static/updateImage.js"></script>
+<script src="../static/js/updateImage.js"></script>

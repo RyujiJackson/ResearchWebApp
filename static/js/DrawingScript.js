@@ -19,7 +19,6 @@ canvas.addEventListener('click', onClick);
 canvas.addEventListener('contextmenu', rightClick);
 undoButton.addEventListener('click', undoClick);
 drawingButton.addEventListener('click', toggleDrawing);
-var dropDownValue = document.getElementById("options").value;
 
 
 function toggleDrawing() {
@@ -165,6 +164,11 @@ async function saveArray(arrayData) {
   }
 
 function change_anntotaion_type(){
+
+  var dropDownValue = document.getElementById("options").value;
+
+  dropDownValue = Number(dropDownValue);
+
   if(dropDownValue==0)
     {
       annotation_color = "red";

@@ -28,7 +28,7 @@
     margin: 0 auto; 
     position:relative; 
     border: 1px solid #000;
-    background-color: #FBD603;
+    background-color: #27A69A;
     width: 512px;
     height: 512px;
     text-align: center; 
@@ -86,3 +86,56 @@ table,th,td {
 .checklist .list-group-item input {
     margin-right: 5px; /* Space between checkbox and label */
 }
+
+.flex-container {
+    display: flex;
+    justify-content: flex-start; /* Aligns the elements to the left */
+    align-items: center; /* Vertically centers the elements */
+    gap: 20px; /* Adds space between the elements */
+    flex-wrap: nowrap; /* Prevents elements from wrapping */
+    max-width: 1200px; /* Set a maximum width if needed */
+    margin: 0; /* Removes any outer margin */
+    padding: 0; /* Removes any inner padding */
+    box-sizing: border-box; /* Ensures padding and border are included in width/height */
+}
+
+#canvas-container, .options-container, .image-container {
+    margin: 0; /* Removes any margin */
+    padding: 0; /* Removes any padding */
+    flex-shrink: 0; /* Prevents shrinking */
+    flex-grow: 0; /* Prevents growing */
+}
+
+#canvas-container {
+    width: 512px; /* Fixed width for the canvas container */
+    height: 512px; /* Fixed height for the canvas container */
+    text-align: center;
+}
+
+.options-container {
+    width: 180px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the buttons horizontally */
+    gap: 10px; /* Adds space between the buttons */
+}
+
+
+.image-container {
+    width: 512px; /* Fixed width for the image container */
+    height: 512px; /* Fixed height for the image container */
+    position: relative; /* For overlaying heatmap images */
+}
+
+.img, .img_top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Ensures both images are the same size */
+    height: 100%; /* Ensures both images are the same size */
+}
+
+
+
+

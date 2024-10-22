@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		<h2>Select Gastric X-ray images to upload and display heatmap</h2>
+		<!--
 		<p>
 			{% with messages = get_flashed_messages() %}
 	  			{% if messages %}
@@ -19,7 +20,7 @@
 					</ul>
 	  			{% endif %}
 			{% endwith %}
-		</p>
+		</p>-->
 
 		<form method="post" action="/" enctype="multipart/form-data">
     		<dl>
@@ -74,7 +75,7 @@
 				
 				<!-- Canvas Options Buttons -->
 				<div class="options-container">
-					<label for="options">病変を選択:</label>
+					<label for="options" class="grey-text text-darken-2">病変を選択:</label>
 					<div class="input-field col s12">
 						<select id="options" name="options" onchange="change_anntotaion_type()">
 							<option value="0">Fold</option>
@@ -82,15 +83,15 @@
 							<option value="2">Antrum</option>
 						</select>
 					</div>
-					<button id="drawing-toggle" style="display: block; width:150px; height: 50px;">Disabling Drawing</button>
-					<button id="zoom-button" style="display: block; width:150px; height: 50px;">Disabling Zoom</button>
-					<button id="undo" style="display: block; width:150px; height: 50px;">Undo</button>
+					<button class="btn waves-effect waves-light" id="drawing-toggle">Disabling Drawing</button>
+					<button class="btn waves-effect waves-light" id="zoom-button">Disabling Zooming</button>
+					<button class="btn waves-effect waves-light" id="undo">Undo</button>
 					
 					
-					<label for="window_level">Window Level:</label>
+					<label for="window_level" class="grey-text text-darken-2">Window Level:</label>
 					<input type="range" id="window_level" min="1" max="4096" value="2048" onchange="updateImage()">
 			
-					<label for="window_width">Window Width:</label>
+					<label for="window_width" class="grey-text text-darken-2">Window Width:</label>
 					<input type="range" id="window_width" min="1" max="4096" value="4096" onchange="updateImage()">
 				</div>
 			
@@ -99,49 +100,49 @@
 						<tr>
 							  <td>前庭部胃粘膜の判定
 								<ul>
-									<label><input type="checkbox" name="zentei_inen{{filenames[img_index]}}_1"> <span>平滑型</span></label>
-									<label><input type="checkbox" name="zentei_inen{{filenames[img_index]}}_2"> <span>粗造型</span></label>
-									<label><input type="checkbox" name="zentei_inen{{filenames[img_index]}}_3"> <span>中間型</span></label>
+									<label><input type="checkbox" name="zentei_inen{{filenames[img_index]}}_1"> <span class="grey-text text-darken-2">平滑型</span></label>
+									<label><input type="checkbox" name="zentei_inen{{filenames[img_index]}}_2"> <span class="grey-text text-darken-2">粗造型</span></label>
+									<label><input type="checkbox" name="zentei_inen{{filenames[img_index]}}_3"> <span class="grey-text text-darken-2">中間型</span></label>
 								</ul>
 							</td>
 							<td>胃体部胃粘膜の判定
 								<ul>
-									<label><input type="checkbox" name="itai_inen{{filenames[img_index]}}_1"> <span>平滑型</span></label>
-									<label><input type="checkbox" name="itai_inen{{filenames[img_index]}}_2"> <span>粗造型</span></label>
-									<label><input type="checkbox" name="itai_inen{{filenames[img_index]}}_3"> <span>中間型</span></label>
+									<label><input type="checkbox" name="itai_inen{{filenames[img_index]}}_1"> <span class="grey-text text-darken-2">平滑型</span></label>
+									<label><input type="checkbox" name="itai_inen{{filenames[img_index]}}_2"> <span class="grey-text text-darken-2">粗造型</span></label>
+									<label><input type="checkbox" name="itai_inen{{filenames[img_index]}}_3"> <span class="grey-text text-darken-2">中間型</span></label>
 								</ul>
 							</td>
 							<td>ひだの形状判定
 								<ul>
-									<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span>正常型(6S)</span></label>
-									<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span>異常型(非6S)</span></label>
-									<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span>中間型</span></label>
-									<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span>消失型</span></label>
+									<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span class="grey-text text-darken-2">正常型(6S)</span></label>
+									<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span class="grey-text text-darken-2">異常型(非6S)</span></label>
+									<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span class="grey-text text-darken-2">中間型</span></label>
+									<label><input type="checkbox" name="hida{{filenames[img_index]}}_1"> <span class="grey-text text-darken-2">消失型</span></label>
 								</ul>
 							</td>
 						</tr>
 						<tr>
 							<td>ひだの分布の判定
 								<ul>
-									<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_1"> <span>萎縮なし</span></label>
-									<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_2"> <span>軽度萎縮</span></label>
-									<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_3"> <span>中等度萎縮</span></label>
-									<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_4"> <span>高度萎縮</span></label>
+									<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_1"> <span class="grey-text text-darken-2">萎縮なし</span></label>
+									<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_2"> <span class="grey-text text-darken-2">軽度萎縮</span></label>
+									<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_3"> <span class="grey-text text-darken-2">中等度萎縮</span></label>
+									<label><input type="checkbox" name="hida_bunpu{{filenames[img_index]}}_4"> <span class="grey-text text-darken-2">高度萎縮</span></label>
 								</ul>
 							</td>
 							<td>読影(感染有無)
 								<ul>
-									<label><input type="checkbox" name="dokuei{{filenames[img_index]}}_1"> <span>非感染</span></label>
-									<label><input type="checkbox" name="dokuei{{filenames[img_index]}}_2"> <span>感染</span></label>
+									<label><input type="checkbox" name="dokuei{{filenames[img_index]}}_1"> <span class="grey-text text-darken-2">非感染</span></label>
+									<label><input type="checkbox" name="dokuei{{filenames[img_index]}}_2"> <span class="grey-text text-darken-2">感染</span></label>
 								</ul>
 							</td>
 							<td>ABCD分類
 								<ul>
-									<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_1"> <span>A(PG-,Anti-)</span></label>\
-									<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_2"> <span>B(PG-,Anti+)</span></label>
-									<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_3"> <span>C(PG+,Anti+)</span></label>
-									<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_4"> <span>D(PG+,Anti-)</span></label>
-									<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_5"> <span>その他</span></label>
+									<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_1"> <span class="grey-text text-darken-2">A(PG-,Anti-)</span></label>\
+									<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_2"> <span class="grey-text text-darken-2">B(PG-,Anti+)</span></label>
+									<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_3"> <span class="grey-text text-darken-2">C(PG+,Anti+)</span></label>
+									<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_4"> <span class="grey-text text-darken-2">D(PG+,Anti-)</span></label>
+									<label><input type="checkbox" name="ABCD{{filenames[img_index]}}_5"> <span class="grey-text text-darken-2">その他</span></label>
 								</ul>
 							</td>
 						</tr>
@@ -149,8 +150,8 @@
 							<th>
 								<form method="POST" action="{{ url_for('diagnose_result') }}">
 									<input type="hidden" name="img_index" value="{{img_index}}">
-									<button name="ai_result" type="submit" value="{{filename}}">
-										Show AI diagnose result
+									<button class="btn waves-effect waves-light" name="ai_result" type="submit" value="{{filename}}">
+										Show AI result
 									</button>
 								</form> 									
 							</th>
@@ -173,7 +174,12 @@
 							<br>
 							<p>診断結果 : {{results[img_index]}}</p>
 							<br>
-							<a href="{{ url_for('.download_file') }}">Download heatmaps</a>
+							<form method="GET" action="{{ url_for('.download_file') }}">
+								<button class="btn waves-effect waves-light" type="submit" id="heatmap-download">
+									Download Heatmaps
+								</button>
+							</form>
+							
 						</td>
 					</tr>
 				</table>

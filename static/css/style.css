@@ -1,3 +1,7 @@
+body {
+    background-color: #FFF8E1; /* Change to your desired color */
+}
+
 .checklist td {
 	border: 1px solid black;
 	 border-radius: 10px;
@@ -8,6 +12,16 @@
     width: 512px; /* Ensure this matches the image dimensions */
     height: 512px; /* Ensure this matches the image dimensions */
     overflow: auto; /* Enable scrolling */
+}
+
+#drawing-toggle,#zoom-button,#undo,#heatmap-download {
+    display: block;
+    width: 125px;
+    height: 50px;
+    padding: 5px 10px; /* Adjust padding as needed */
+    margin: 0; /* Remove any margin */
+    line-height: 1; /* Set line height to a smaller value */
+    font-size: 14px; /* Adjust font size if necessary */
 }
 
 .img {

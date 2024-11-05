@@ -176,41 +176,41 @@ sphinxcontrib-devhelp @ file:///home/ktietz/src/ci/sphinxcontrib-devhelp_1611920
 sphinxcontrib-htmlhelp @ file:///tmp/build/80754af9/sphinxcontrib-htmlhelp_1623945626792/work
 sphinxcontrib-jsmath @ file:///home/ktietz/src/ci/sphinxcontrib-jsmath_1611920942228/work
 sphinxcontrib-qthelp @ file:///home/ktietz/src/ci/sphinxcontrib-qthelp_1611921055322/work
-sphinxcontrib-serializinghtml @ file:///tmp/build/80754af9/sphinxcontrib-serializinghtml_1624451540180/work
-spyder @ file:///C:/ci/spyder_1636480387853/work
-spyder-kernels @ file:///C:/ci/spyder-kernels_1634237058681/work
+sphinxcontrib-serializinghtml 
+spyder 
+spyder-kernels 
 sqlparse==0.4.4
 statsmodels==0.11.1
-tensorboard @ file:///home/builder/ktietz/aggregate/tensorflow_recipes/ci_te/tensorboard_1614593728657/work/tmp_pip_dir
+tensorboard 
 tensorboard-plugin-wit==1.6.0
 tensorflow==2.3.0
-tensorflow-estimator @ file:///home/builder/adipietro/tf/tensorflow-estimator_1630508970172/work/tensorflow_estimator-2.6.0-py2.py3-none-any.whl
+tensorflow-estimator 
 tensorflow-gpu==2.3.0
 tensorflow-gpu-estimator==2.3.0
 termcolor==1.1.0
-terminado @ file:///C:/ci/terminado_1644322782754/work
-testpath @ file:///C:/Windows/TEMP/abs_23c7fa33-cbb9-46dc-b7c5-590c38e2de3d4bmbngal/croots/recipe/testpath_1655908553202/work
-text-unidecode @ file:///Users/ktietz/demo/mc3/conda-bld/text-unidecode_1629401354553/work
-textdistance @ file:///tmp/build/80754af9/textdistance_1612461398012/work
-threadpoolctl @ file:///Users/ktietz/demo/mc3/conda-bld/threadpoolctl_1629802263681/work
-three-merge @ file:///tmp/build/80754af9/three-merge_1607553261110/work
-tinycss @ file:///tmp/build/80754af9/tinycss_1617713798712/work
-toml @ file:///tmp/build/80754af9/toml_1616166611790/work
-tornado @ file:///C:/ci/tornado_1606935947090/work
-traitlets @ file:///tmp/build/80754af9/traitlets_1636710298902/work
-typed-ast @ file:///C:/ci/typed-ast_1624953789477/work
+terminado 
+testpath 
+text-unidecode 
+textdistance 
+threadpoolctl 
+three-merge 
+tinycss 
+toml 
+tornado 
+traitlets
+typed-ast
 typing_extensions==4.5.0
-ujson @ file:///C:/ci/ujson_1657507700248/work
-Unidecode @ file:///tmp/build/80754af9/unidecode_1614712377438/work
-urllib3 @ file:///C:/ci/urllib3_1650639842077/work
+ujson 
+Unidecode 
+urllib3
 virtualenv==20.22.0
-watchdog @ file:///C:/ci/watchdog_1638367455435/work
-wcwidth @ file:///Users/ktietz/demo/mc3/conda-bld/wcwidth_1629357192024/work
+watchdog 
+wcwidth 
 webencodings==0.5.1
 Werkzeug==2.2.3
-win-inet-pton @ file:///C:/ci/win_inet_pton_1605306165655/work
+win-inet-pton 
 wincertstore==0.2
-wrapt @ file:///C:/Windows/Temp/abs_7c3dd407-1390-477a-b542-fd15df6a24085_diwiza/croots/recipe/wrapt_1657814452175/work
-yapf @ file:///tmp/build/80754af9/yapf_1615749224965/work
-yarl @ file:///C:/ci/yarl_1606940114600/work
-zipp @ file:///C:/ci/zipp_1652274072582/work
+wrapt 
+yapf 
+yarl 
+zipp 

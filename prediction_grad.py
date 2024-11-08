@@ -4,11 +4,42 @@ from keras.preprocessing import image
 import tensorflow as tf
 import matplotlib.cm as cm
 import numpy as np
+import requests
+import os
 
 #below this message is gradcam and prediction part
+#use model locally
+"""
 model_name = 'inception_resnet_v2'
 model=load_model("model/Incep_Resnet_V2.h5")
 img_size = 384
+"""
+
+#donwload model from git release
+model_name = 'inception_resnet_v2'
+model_path = "model/Incep_Resnet_V2.h5"
+model_url = "https://github.com/RyujiJackson/ResearchWebApp/releases/download/v.1.0.0/Incep_Resnet_V2.h5"  # Update with actual release URL
+img_size = 384
+
+# Download model if not present
+def download_model():
+    if not os.path.exists(model_path):
+        print("Downloading model...")
+        response = requests.get(model_url, stream=True)
+        os.makedirs(os.path.dirname(model_path), exist_ok=True)
+        with open(model_path, "wb") as file:
+            for chunk in response.iter_content(chunk_size=8192):
+                file.write(chunk)
+        print("Model downloaded successfully.")
+
+# Ensure model is downloaded
+download_model()
+
+# Load model
+model = load_model(model_path)
+
+
+
 
 def prediction(img):
 	processed_img = img_preprocesssing(img)

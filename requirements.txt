@@ -8,4 +8,3 @@ pandas==1.2.4
 gunicorn
 pydicom
 Keras-Preprocessing
-Keras

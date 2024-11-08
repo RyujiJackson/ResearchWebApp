@@ -1,6 +1,7 @@
-from keras import models
+from tensorflow.keras import models
+from tensorflow.keras import Input
 from tensorflow.keras.models import load_model
-from keras.preprocessing import image
+from tensorflow.keras.preprocessing import image
 import tensorflow as tf
 import matplotlib.cm as cm
 import numpy as np
@@ -60,7 +61,7 @@ def gradcam(img):
 
 	last_conv_layer = model.get_layer(model_name).get_layer(incep_names[-4])
 	last_conv_layer_model = models.Model(model.get_layer(model_name).inputs, last_conv_layer.output)
-	classifier_input = models.Input(shape=last_conv_layer.output.shape[1:])
+	classifier_input = Input(shape=last_conv_layer.output.shape[1:])
 	x = classifier_input
 
 	x = model.get_layer(model_name).get_layer(incep_names[-3])(x)

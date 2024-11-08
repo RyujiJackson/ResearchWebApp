@@ -5,7 +5,7 @@ import pydicom.errors
 from app import app
 from flask import Flask,flash,request,redirect,render_template,send_file,jsonify
 from werkzeug.utils import secure_filename
-from keras.preprocessing import image
+from tensorflow.keras.preprocessing import image
 from prediction_grad import *
 from windowing import *
 import shutil

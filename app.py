@@ -3,7 +3,7 @@ from flask import Flask,render_template
 UPLOAD_FOLDER = 'static/uploads/origin/'
 
 app = Flask(__name__)
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
 	return render_template('Diagnose.html')
 

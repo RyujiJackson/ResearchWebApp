@@ -4,3 +4,4 @@ static/uploads/heatmap
 static/uploads/origin
 static/annotation/
 model/*.h5
+__pycache__

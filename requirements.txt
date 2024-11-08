@@ -5,3 +5,4 @@ numpy==1.16.6
 Pillow==9.2.0
 requests==2.28.1
 pandas==1.2.4
+gunicorn

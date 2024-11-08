@@ -61,11 +61,10 @@ def clear_data():
 	file_names.clear()
 	pred_list.clear()
 	result_list.clear()
-"""
-@app.route('/')
+
+@app.route('/', methods=['GET'])
 def home():
 	return render_template('Diagnose.html')
-"""
 #handle image upload
 @app.route('/', methods=['POST'])
 def upload_image():

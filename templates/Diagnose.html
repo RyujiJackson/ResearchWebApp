@@ -12,16 +12,16 @@
 		<!--navigation Bar-->
 		<nav style="background-color: #27A69A;">
 			<div class="nav-wrapper">
-			  <a href="#" class="brand-logo">Logo</a>
+			  <a href="#" class="brand-logo" style="flex-grow: 0;">Logo</a>
 			  <ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a href="Diagnose.html">Home</a></li>
-				<li><a href="badges.html">How to use</a></li>
-				<li><a href="collapsible.html">Contact</a></li>
+				<li><a href="Howto.html">How to use</a></li>
+				<li><a href="Contact.html">Contact</a></li>
 			  </ul>
 			</div>
 		  </nav>
 
-		<h2 style="color: #00796B;">Select Gastric X-ray images to upload and display heatmap</h2>
+		<h2 style="color: #00796B; margin-top: 10px;">Select Gastric X-ray images to upload and display heatmap</h2>
 		<!--
 		<p>
 			{% with messages = get_flashed_messages() %}
@@ -59,7 +59,7 @@
 		</form>
 
 		{% if filenames %}
-		<div style="height: 200px; width: 1200px; border: 1px solid #ccc; font: 16px/26px Georgia, Garamond, Serif; overflow: auto;">
+		<div style="height: 210px; width: 1200px; border: 1px solid #ccc; font: 16px/26px Georgia, Garamond, Serif; overflow: auto; border-radius: 15px;">
 			<table style="width: auto; table-layout: auto; border-collapse: collapse;">
 				<tr>
 					{% for filename in filenames %}
@@ -201,7 +201,7 @@
 			
 		{% endif %}
 	</body>
-
+<!--
 	<footer class="page-footer" style="background-color: #27A69A;">
 		<div class="container">
 		  <div class="row">
@@ -225,7 +225,8 @@
 		  <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
 		  </div>
 		</div>
-	  </footer>
+	</footer>
+-->
 </html>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

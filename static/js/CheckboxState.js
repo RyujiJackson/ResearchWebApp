@@ -1,43 +1,35 @@
-// Avoid scoping issues by encapsulating code inside anonymous function
 (function() {
-    // variable to store our current state
-    var cbstate;
+  var cbstate = {};
 
-    // bind to the onload event
-    window.addEventListener('load', function() {
-  // Get the current state from localstorage
-  // State is stored as a JSON string
-  cbstate = JSON.parse(localStorage['CBState'] || '{}');
+  window.addEventListener('load', function() {
+      // Check if localStorage has stored checkbox states
+      if (localStorage.getItem('CBState')) {
+          cbstate = JSON.parse(localStorage.getItem('CBState'));
+      }
 
-  // Loop through state array and restore checked 
-  // state for matching elements
-  for(var i in cbstate) {
-        var el = document.querySelector('input[name="' + i + '"]');
-        if (el) el.checked = true;
-  }
-
-  // Get all checkboxes that you want to monitor state for
-  var cb = document.getElementsByClassName('save-cb-state');
-
-  // Loop through results and ...
-  for(var i = 0; i < cb.length; i++) {
-
-    //bind click event handler
-        cb[i].addEventListener('click', function(evt) {
-      // If checkbox is checked then save to state
-          if (this.checked) {
-            cbstate[this.name] = true;
+      // Loop through the stored states and restore them
+      for (var name in cbstate) {
+          var el = document.querySelector('input[name="' + name + '"]');
+          if (el) {
+              el.checked = cbstate[name];  // Restore the checked state
           }
-  
-  // Else remove from state
-          else if (cbstate[this.name]) {
-            delete cbstate[this.name];
-          }
-  
-  // Persist state
-          localStorage.CBState = JSON.stringify(cbstate);
-        });
-  }
-  
-});
+      }
+
+      // Get all checkboxes with a specific class that we want to monitor
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+      checkboxes.forEach(function(cb) {
+          // Bind click event to each checkbox to monitor its state
+          cb.addEventListener('change', function() {
+              if (this.checked) {
+                  cbstate[this.name] = true;  // Mark as checked
+              } else {
+                  delete cbstate[this.name];  // Remove from saved state if unchecked
+              }
+
+              // Save the updated state to localStorage
+              localStorage.setItem('CBState', JSON.stringify(cbstate));
+          });
+      });
+  });
 })();

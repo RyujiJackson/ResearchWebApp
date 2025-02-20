@@ -8,4 +8,4 @@ numpy==1.16.6
 requests
 werkzeug
 opencv-python
-
+tensorflow-gpu==2.3.0

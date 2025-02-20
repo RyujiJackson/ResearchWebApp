@@ -1,0 +1,5 @@
+runtime: python38  # Replace python37 with python311 or python39
+entrypoint: gunicorn -b :$PORT application:app  # Adjust the entry point if necessary
+
+# Set a larger instance class
+instance_class: F4

@@ -57,27 +57,28 @@ def show_dicom_image(dicom_file, window_level=None, window_width=None):
     image_data = (image_data-min_window)/(max_window-min_window)*255.0
     print(image_data)
     return image_data
-
-    """
-
+"""
+    cv2.imwrite("filename.png", image_data)
+"""
+"""
     #return image_data
   fig = plt.figure()
     # Convert image to PNG byte array
-  fig.add_subplot(223)
+  #fig.add_subplot(223)
   plt.imshow(image_data, cmap="gray")
-  plt.colorbar()
+  #plt.colorbar()
   plt.axis("off")
 
   # Display image using Matplotlib
-  fig.add_subplot(224)
-  plt.title('histogram ')
-  plt.hist(image_data)
+  #fig.add_subplot(224)
+  #plt.title('histogram ')
+  #plt.hist(image_data)
     
     
     #plt.savefig(buf, format="png")
   plt.show()
-    
-
+"""    
+"""
     processed_image_bytes = BytesIO()
     print(processed_image_bytes)
     img = Image.fromarray(image_data.astype(np.uint8), mode='L')
@@ -103,10 +104,9 @@ def get_windowing(data):
 dicom_path = "static/uploads/DICOM/20150414000010001.DCM"
 
 # With windowing (adjust values for your modality)
-window_level = 3000
-window_width = 2000
+window_level = 2500
+window_width = 1500
 get_windowing(dicom_path)
 
 show_dicom_image(dicom_path, window_level, window_width)
-
 """

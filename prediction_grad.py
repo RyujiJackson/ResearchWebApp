@@ -36,9 +36,11 @@ def download_model():
 # Ensure model is downloaded
 download_model()
 
-# Load model
-model = load_model(model_path)
-
+# Load model in python 3.7
+#model = load_model(model_path)
+#model.save("model_saved", save_format="tf")  # Save in SavedModel format
+#load model in python 3.8
+model = load_model("model_saved")
 
 
 
